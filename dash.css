@@ -1,0 +1,162 @@
+/* General Page Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fd;
+  margin: 0;
+  padding: 0;
+}
+
+/* Layout to ensure sidebar and main content are side by side */
+.dashboard-wrapper {
+  display: flex;
+  width: 95vw;
+  height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.sidebar img {
+  width: 120px;
+  margin-bottom: 10px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.sidebar ul li {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sidebar ul li:hover, .sidebar ul li.active {
+  background: #f0f5ff;
+  color: #007bff;
+}
+
+.sidebar ul li img {
+  width: 20px;
+  margin-right: 10px;
+}
+
+/* Dashboard Main Content */
+.dashboard-container {
+  flex: 1;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Container */
+.cards-container {
+  display: flex;
+  justify-content: flex-start; /* Aligns cards to the left */
+  gap: 20px; /* Reduced space between cards */
+  flex-wrap: wrap;
+}
+
+/* Balance Card Styling */
+.balance-card {
+  width: 210px; /* Adjusted width */
+  min-height: 120px; /* Adjusted height */
+  border-radius: 15px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease-in-out;
+  color: #fff;
+}
+
+.balance-card:hover {
+  transform: scale(1.03);
+}
+
+/* Primary and Secondary Card Colors */
+.primary-card {
+  background: linear-gradient(135deg, #007bff 30%, #0048b3 100%);
+}
+
+.secondary-card {
+  background: linear-gradient(135deg, #28a745 30%, #116820 100%);
+}
+
+/* Card Title */
+.card-title {
+  font-size: 14px;
+  font-weight: bold;
+  opacity: 0.9;
+}
+
+/* Balance Row */
+.balance-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Balance Amount */
+.balance-amount {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+/* Flag Icon - Positioned at Bottom Right */
+.flag-icon {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  width: 30px; /* Slightly smaller */
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flag-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .balance-card {
+    width: 90%;
+  }
+}

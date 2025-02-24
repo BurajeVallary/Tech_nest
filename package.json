@@ -1,0 +1,19 @@
+{
+  "name": "tech_nest",
+  "version": "1.0.0",
+  "description": "Bank Account Balance Checker",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Calvin Rumba",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^30.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  }
+}

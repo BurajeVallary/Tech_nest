@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="./dash.css">
+</head>
+<body>
+  <div class="dashboard-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="./assets/logo.jpg" alt="Company Logo">
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="nav-item active" id="overviewNav" onclick="showSection('overview', this)">
+            <img src="./assets/overview.png" alt="Overview Icon">
+            <span>Overview</span>
+          </li>
+          <li class="nav-item" id="transactionsNav" onclick="showSection('transactions', this)">
+            <img src="./assets/transaction.png" alt="Transactions Icon">
+            <span>Transactions</span>
+          </li>
+          <li id="logoutButton">
+            <img src="./assets/logout.png" alt="Logout Icon">
+            <span>Logout</span>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="dashboard-container">
+      <h2 id="sectionTitle">Overview</h2>
+      <p id="welcomeMessage">Welcome, Guest</p>
+
+      <!-- Overview Section (Default Visible) -->
+      <div id="overview" class="section">
+        <div class="cards-container">
+          <div class="balance-card primary-card">
+            <p class="card-title"><strong>Available Balance</strong></p>
+            <div class="balance-row">
+              <h2 class="balance-amount">₦<span id="availableBalance">0</span></h2>
+            </div>
+            <div class="flag-icon">
+              <img src="./assets/nigeria.png" alt="NGN">
+            </div>
+          </div>
+          <div class="balance-card secondary-card">
+            <p class="card-title"><strong>Ledger Balance</strong></p>
+            <div class="balance-row">
+              <h2 class="balance-amount">₦<span id="ledgerBalance">0</span></h2>
+            </div>
+            <div class="flag-icon">
+              <img src="./assets/nigeria.png" alt="GHS">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transactions Section (Initially Hidden) -->
+      <div id="transactions" class="section hidden">
+        <h3>Recent Transactions</h3>
+        <ul id="transactionList">
+          <li>No transactions available</li>
+        </ul>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Function to show selected section
+    function showSection(section, element) {
+      // Hide all sections
+      document.querySelectorAll(".section").forEach(sec => sec.classList.add("hidden"));
+      
+      // Show the selected section
+      document.getElementById(section).classList.remove("hidden");
+
+      // Update the section title
+      document.getElementById("sectionTitle").innerText = section.charAt(0).toUpperCase() + section.slice(1);
+
+      // Remove active class from all nav items
+      document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+
+      // Add active class to clicked item
+      element.classList.add("active");
+    }
+
+    // Set "Overview" as the default section on page load
+    document.addEventListener("DOMContentLoaded", () => {
+      showSection("overview", document.getElementById("overviewNav"));
+      fetchBalance();
+    });
+
+    // Logout functionality
+    document.getElementById("logoutButton").addEventListener("click", () => {
+      sessionStorage.clear();
+      localStorage.clear();
+      window.location.href = "index.html"; 
+    });
+
+    // Fetch balance
+    const fetchBalance = async () => {
+      try {
+        const response = await fetch(
+          "https://dev.tellerpoint.hextremelabs.com/Tellerpoint/rpc/merchant/external/wallet/balance",
+          {
+            method: "GET",
+            headers: {
+              "content-type": "application/json",
+              sessionId: sessionStorage.getItem("sessionId") || localStorage.getItem("sessionId"),
+            },
+          }
+        );
+
+        if (!response.ok) throw new Error("Failed to fetch balance");
+
+        const data = await response.json();
+        
+        document.getElementById("availableBalance").textContent = data.entity?.availableBalance ?? 0;
+        document.getElementById("ledgerBalance").textContent = data.entity?.ledgerBalance ?? 0;
+
+        if (data.entity?.transactions?.length) {
+          const transactions = data.entity.transactions.map(tx => `<li>${tx.description} - ₦${tx.amount}</li>`).join("");
+          document.getElementById("transactionList").innerHTML = transactions;
+        }
+      } catch (error) {
+        console.error("Error fetching balance:", error);
+      }
+    };
+  </script>
+</body>
+</html>
