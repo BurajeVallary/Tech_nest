@@ -1,15 +1,23 @@
 /* General Page Styling */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; 
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f8f9fd;
   margin: 0;
   padding: 0;
+  
 }
+
 
 /* Layout to ensure sidebar and main content are side by side */
 .dashboard-wrapper {
   display: flex;
-  width: 95vw;
+  width: 100vw;
   height: 100vh;
 }
 
@@ -46,7 +54,8 @@ body {
   transition: 0.3s;
 }
 
-.sidebar ul li:hover, .sidebar ul li.active {
+.sidebar ul li:hover,
+.sidebar ul li.active {
   background: #f0f5ff;
   color: #007bff;
 }
@@ -56,30 +65,129 @@ body {
   margin-right: 10px;
 }
 
+/* Top Navigation Bar */
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 15px 15px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  width: calc(70% - 250px);
+  position: fixed;
+  top: 0;
+  left: 350px;
+  z-index: 1000;
+  height: 30px;
+  margin-top: 10px;
+}
+
+.menu-icon {
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon span {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.search-bar {
+  flex: 1;
+  margin: 0 10px;
+  position: relative;;
+  margin: 10px 0;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-left: 50px;
+}
+
+.search-bar input {
+  margin: 10px 0;
+  padding: 12px;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+
+}
+
+.notification-area {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.notification-icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.notification-icon img {
+  width: 20px;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #28a745;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-info img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 /* Dashboard Main Content */
 .dashboard-container {
   flex: 1;
   background: #fff;
   border-radius: 10px;
-  padding: 20px;
-  margin: 20px;
+  padding: 60px;
+  /* margin: 20px; */
+  margin-top: 80px;
   box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  margin-left: 50px;
 }
+
 
 /* Card Container */
 .cards-container {
   display: flex;
-  justify-content: flex-start; /* Aligns cards to the left */
-  gap: 20px; /* Reduced space between cards */
+  justify-content: flex-start;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
 /* Balance Card Styling */
 .balance-card {
-  width: 210px; /* Adjusted width */
-  min-height: 120px; /* Adjusted height */
+  width: 210px;
+  min-height: 120px;
   border-radius: 15px;
   padding: 12px;
   display: flex;
@@ -132,7 +240,7 @@ body {
   position: absolute;
   bottom: 8px;
   right: 10px;
-  width: 30px; /* Slightly smaller */
+  width: 30px;
   height: 30px;
   border-radius: 50%;
   overflow: hidden;
@@ -149,8 +257,33 @@ body {
   border-radius: 50%;
 }
 
+.transact{
+  margin-left: 100px;
+}
+
 /* Responsive Design */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .dashboard-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .top-nav {
+    width: 100%;
+    left: 0;
+    padding: 10px;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+
+
   .cards-container {
     flex-direction: column;
     align-items: center;
@@ -158,5 +291,47 @@ body {
 
   .balance-card {
     width: 90%;
+  }
+  @media (max-width: 768px) {
+    .top-nav {
+      width: 100%;
+      left: 0;
+      padding: 10px;
+      flex-direction: column;
+      align-items: center;
+      height: auto;
+      position: relative;
+    }
+  
+    .menu-icon {
+      order: 1;
+      font-size: 24px;
+    }
+  
+    @media (max-width: 768px) {
+      .search-bar {
+        width: 90%;
+        max-width: 400px;
+        margin: 10px auto; 
+        padding: 10px;
+        font-size: 14px;
+      }
+    }
+    
+    .nav-icons {
+      order: 2;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 10px;
+    }
+  
+    .brand-name {
+      font-size: 14px;
+    }
+  
+    .divider {
+      display: none;
+    }
   }
 }
